@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mushrooms.MainPage">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <!-- Верхняя панель -->
+        <Grid BackgroundColor="Black" Padding="10" ColumnDefinitions="Auto, *, Auto" Row="0">
+            <Button Text="← Назад" TextColor="White" Clicked="OnBackClicked" Grid.Column="0"/>
+            <Label x:Name="PageTitle" Text="Список грибов" TextColor="White" FontSize="20"
+                   HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+            <Button Text="+ Добавить" TextColor="White" Clicked="OnAddClicked" Grid.Column="2"/>
+        </Grid>
+
+        <!-- Контент -->
+        <Grid Row="1">
+
+            <!-- Список грибов -->
+            <CollectionView x:Name="ListPage" IsVisible="True" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="10">
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="100,*,Auto">
+                                <Image Source="{Binding FullImagePath}" WidthRequest="80" HeightRequest="80" Aspect="AspectFill" Grid.RowSpan="2" Grid.Column="0"/>
+                                <StackLayout Grid.Column="1" Margin="10,0">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                    <Label Text="{Binding LatinName}" FontSize="12" TextColor="Gray"/>
+                                    <Label Text="{Binding ShortDescription}" FontSize="12" TextColor="DarkGray"/>
+                                </StackLayout>
+                                <Button Text="Описание" Grid.Column="2" Grid.Row="0" Clicked="OnDescriptionClicked" CommandParameter="{Binding}" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Страница "Подробнее" -->
+            <ScrollView x:Name="DetailPage" IsVisible="False">
+                <StackLayout Padding="20" Spacing="20">
+                    <Label Text="Название:" FontAttributes="Italic"/>
+                    <Label x:Name="DetailName" FontSize="20"/>
+                    <Label Text="Латинское название:" FontAttributes="Italic"/>
+                    <Label x:Name="DetailLatinName" FontSize="16" TextColor="Gray"/>
+                    <Image x:Name="DetailImage" HeightRequest="200"/>
+                    <Label x:Name="DetailDescription" FontSize="14"/>
+                    <Button Text="Редактировать" Clicked="OnEditClicked"/>
+                </StackLayout>
+            </ScrollView>
+
+            <!-- Страница редактирования -->
+            <ScrollView x:Name="EditPage" IsVisible="False">
+                <StackLayout Padding="20" Spacing="10">
+                    <Entry x:Name="EditName" Placeholder="Название (человеческое)"/>
+                    <Entry x:Name="EditLatinName" Placeholder="Название (латиницей)"/>
+                    <Editor x:Name="EditDescription" Placeholder="Описание" HeightRequest="100"/>
+                    <Button Text="Выбрать фото" Clicked="OnPickImageClicked"/>
+                    <Label x:Name="PickedImageLabel" Text="Файл не выбран" FontSize="12" TextColor="Gray"/>
+                    <Button Text="Сохранить" Clicked="OnSaveClicked"/>
+                    <Button Text="Удалить" Clicked="OnDeleteClicked" x:Name="DeleteButton" TextColor="Red"/>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+
+</ContentPage>
