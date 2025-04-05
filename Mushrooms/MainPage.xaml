@@ -51,8 +51,8 @@
             <!-- Страница редактирования -->
             <ScrollView x:Name="EditPage" IsVisible="False">
                 <StackLayout Padding="20" Spacing="10">
-                    <Entry x:Name="EditName" Placeholder="Название (человеческое)"/>
-                    <Entry x:Name="EditLatinName" Placeholder="Название (латиницей)"/>
+                    <Entry x:Name="EditName" Placeholder="Название"/>
+                    <Entry x:Name="EditLatinName" Placeholder="Название латиницей"/>
                     <Editor x:Name="EditDescription" Placeholder="Описание" HeightRequest="100"/>
                     <Button Text="Выбрать фото" Clicked="OnPickImageClicked"/>
                     <Label x:Name="PickedImageLabel" Text="Файл не выбран" FontSize="12" TextColor="Gray"/>
